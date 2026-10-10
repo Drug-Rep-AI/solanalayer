@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SOLANA_VERSION: "4.1.2"
+  PLATFORM_TOOLS: "v1.57"
+  CIRCOM_VERSION: "v2.2.3"
+
+jobs:
+  programs:
+    name: Programs (build, lint, LiteSVM tests)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust toolchain (from rust-toolchain.toml)
+        run: rustup show active-toolchain || rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - name: Cache Solana CLI and platform tools
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/solana
+            ~/.cache/solana
+          key: solana-${{ env.SOLANA_VERSION }}-${{ env.PLATFORM_TOOLS }}
+      - name: Install Solana CLI
+        run: |
+          if [ ! -x "$HOME/.local/share/solana/install/active_release/bin/solana" ]; then
+            sh -c "$(curl -sSfL https://release.anza.xyz/v${SOLANA_VERSION}/install)"
+          fi
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> "$GITHUB_PATH"
+      - name: Format
+        run: cargo fmt --all --check
+      - name: Build programs (SBPF v3, same flags as anchor build)
+        run: cargo build-sbf --arch v3 --tools-version "$PLATFORM_TOOLS"
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Tests (LiteSVM, real Groth16 proofs)
+        run: cargo test --all
+
+  circuit:
+    name: Circuit and SDK
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install circom
+        run: |
+          curl -sSfL -o /usr/local/bin/circom "https://github.com/iden3/circom/releases/download/${CIRCOM_VERSION}/circom-linux-amd64"
+          chmod +x /usr/local/bin/circom
+          circom --version
+      - name: Circuit compiles to the committed constraint system
+        run: bash circuits/scripts/compile.sh
+      - name: Circuit tests (valid proof, wrong hits, tampered roots, nullifier)
+        run: pnpm test:circuit
+      - name: SDK tests
+        run: pnpm test:sdk
+
+  app:
+    name: App (typecheck, lint, build)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck all packages
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm --filter @drugrep/app lint
+      - name: Build static app
+        run: pnpm app:build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"

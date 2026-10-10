@@ -6,8 +6,13 @@
 //! * a PredictionRun: one DrugRep engine run, with a separate hash for the
 //!   model version, the inputs and each of the three layers, plus the
 //!   Poseidon root of the ranked predictions.
+//!
 //! Each account records the slot and unix time it was written, which is the
 //! timestamp later used to show a prediction existed before an outcome.
+
+// commit_prediction_run takes one argument per anchored hash on purpose, so
+// each layer stays a separate, visible field in the IDL.
+#![allow(clippy::too_many_arguments)]
 
 pub mod error;
 pub mod events;
@@ -37,10 +42,14 @@ pub mod drugrep_registry {
         record_count: u32,
         schema_version: u16,
     ) -> Result<()> {
-        instructions::commit_dataset::handle_commit_dataset(ctx, dataset_root, record_count, schema_version)
+        instructions::commit_dataset::handle_commit_dataset(
+            ctx,
+            dataset_root,
+            record_count,
+            schema_version,
+        )
     }
 
-    #[allow(clippy::too_many_arguments)]
     pub fn commit_prediction_run(
         ctx: Context<CommitPredictionRun>,
         run_id: [u8; 32],

@@ -26,7 +26,13 @@ pub struct PublicInputs {
 
 impl PublicInputs {
     pub fn as_array(&self) -> [[u8; 32]; 5] {
-        [self.predictions_root, self.dataset_root, self.hits, self.k, self.nullifier]
+        [
+            self.predictions_root,
+            self.dataset_root,
+            self.hits,
+            self.k,
+            self.nullifier,
+        ]
     }
 }
 

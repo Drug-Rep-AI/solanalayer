@@ -25,8 +25,11 @@ pub fn handle_commit_prediction_run(
     predictions_root: [u8; 32],
     top_k: u16,
 ) -> Result<()> {
-    require!(is_valid_field_root(&predictions_root), RegistryError::InvalidRoot);
-    require!(top_k >= 1 && top_k <= MAX_TOP_K, RegistryError::InvalidTopK);
+    require!(
+        is_valid_field_root(&predictions_root),
+        RegistryError::InvalidRoot
+    );
+    require!((1..=MAX_TOP_K).contains(&top_k), RegistryError::InvalidTopK);
     for h in [
         &run_id,
         &hashes.model_version_hash,

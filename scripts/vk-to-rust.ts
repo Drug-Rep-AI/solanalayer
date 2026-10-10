@@ -29,6 +29,7 @@ use groth16_solana::groth16::Groth16Verifyingkey;
 
 pub const NR_PUBLIC_INPUTS: usize = ${vk.nPublic};
 
+#[rustfmt::skip]
 pub const VERIFYING_KEY: Groth16Verifyingkey = Groth16Verifyingkey {
     nr_pubinputs: ${vk.nPublic},
     vk_alpha_g1: ${arr(e.alpha)},

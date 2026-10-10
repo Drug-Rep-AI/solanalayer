@@ -2,9 +2,7 @@ use anchor_lang::prelude::*;
 use drugrep_registry::state::{Dataset, PredictionRun};
 use groth16_solana::groth16::Groth16Verifier;
 
-use crate::{
-    error::VerifierError, events::MatchVerified, state::*, verifying_key::VERIFYING_KEY,
-};
+use crate::{error::VerifierError, events::MatchVerified, state::*, verifying_key::VERIFYING_KEY};
 
 #[derive(Accounts)]
 #[instruction(proof: Groth16Proof, public_inputs: PublicInputs)]
@@ -66,14 +64,8 @@ pub fn handle_verify_match(
     require!(hits <= k, VerifierError::InvalidPublicInput);
 
     let inputs = public_inputs.as_array();
-    let mut verifier = Groth16Verifier::new(
-        &proof.a,
-        &proof.b,
-        &proof.c,
-        &inputs,
-        &VERIFYING_KEY,
-    )
-    .map_err(|_| VerifierError::InvalidProof)?;
+    let mut verifier = Groth16Verifier::new(&proof.a, &proof.b, &proof.c, &inputs, &VERIFYING_KEY)
+        .map_err(|_| VerifierError::InvalidProof)?;
     verifier.verify().map_err(|_| VerifierError::InvalidProof)?;
 
     let clock = Clock::get()?;

@@ -31,7 +31,10 @@ pub fn handle_commit_dataset(
     record_count: u32,
     schema_version: u16,
 ) -> Result<()> {
-    require!(is_valid_field_root(&dataset_root), RegistryError::InvalidRoot);
+    require!(
+        is_valid_field_root(&dataset_root),
+        RegistryError::InvalidRoot
+    );
     require!(record_count > 0, RegistryError::InvalidRecordCount);
     let clock = Clock::get()?;
     let lab = &mut ctx.accounts.lab;
