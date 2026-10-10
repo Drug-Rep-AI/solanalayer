@@ -1,0 +1,13 @@
+packages:
+  - sdk
+  - engine-bridge
+  - lab-sim
+  - circuits
+  - scripts
+allowBuilds:
+  blake-hash: true
+  bufferutil: true
+  esbuild: true
+  utf-8-validate: true
+minimumReleaseAgeExclude:
+  - '@types/node@26.6.5'

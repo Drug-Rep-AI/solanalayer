@@ -1,0 +1,27 @@
+{
+  "name": "drugrep-proof-layer",
+  "private": true,
+  "description": "DrugRep Proof Layer: traceable, timestamped and privately validated drug repurposing predictions on Solana.",
+  "license": "MIT",
+  "packageManager": "pnpm@11.9.0",
+  "engines": { "node": ">=20.18" },
+  "scripts": {
+    "circuit:setup": "pnpm --filter @drugrep/circuits run setup",
+    "test:circuit": "pnpm --filter @drugrep/circuits test",
+    "build:programs": "NO_DNA=1 anchor build",
+    "test:programs": "NO_DNA=1 anchor build && cargo test",
+    "test:sdk": "pnpm --filter @drugrep/sdk test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "pnpm -r --if-present lint",
+    "app:dev": "pnpm --filter @drugrep/app dev",
+    "app:build": "pnpm --filter @drugrep/app build",
+    "bridge:commit": "pnpm --filter @drugrep/engine-bridge run commit",
+    "lab:commit": "pnpm --filter @drugrep/lab-sim run commit",
+    "e2e:devnet": "pnpm --filter @drugrep/scripts run e2e"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "tsx": "4.23.15",
+    "@types/node": "26.6.5"
+  }
+}

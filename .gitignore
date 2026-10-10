@@ -1,0 +1,45 @@
+# Rust / Anchor
+target/
+!target/types/
+.anchor/
+test-ledger/
+.surfpool/
+**/*.rs.bk
+
+# Keypairs and secrets: never commit
+*-keypair.json
+id.json
+**/keypairs/
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.pnpm-store/
+dist/
+.next/
+out/
+*.tsbuildinfo
+.vercel
+
+# Circuits: large or regenerable setup files
+circuits/build/*.ptau
+circuits/build/*_0000.zkey
+circuits/build/*_0001.zkey
+circuits/build/trial_match_js/
+circuits/build/trial_match.r1cs
+circuits/build/trial_match.sym
+circuits/build/test/
+
+# Lab private data (raw labels stay local)
+lab-sim/private/
+engine-bridge/private/
+scripts/.e2e/
+
+# Demo recording scratch
+demo/raw/
+demo/frames/
+
+.DS_Store
+app/public/zk/
