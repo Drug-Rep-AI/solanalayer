@@ -50,3 +50,4 @@ Decisions and library quirks found while building the POC. Newest last.
 ## Devnet funding
 
 - The public devnet faucet returned 429 for this machine's IP for the whole session (`requestAirdrop` and `solana airdrop` both). Other public RPCs require API keys for airdrops. The deployer wallet `9hG7Cft6LMVKfmfr9wVUv8c5NipZ8hW7MHgefTWfderP` needs about 3 SOL to deploy both programs (each is about 180 KB). Until it is funded, everything was verified on a local validator (`solana-test-validator` 4.1.2 with both programs preloaded): Rust tests, `scripts/e2e-devnet.ts`, and the full UI flow in a browser.
+- Build each program on its own (`anchor build` does this; in CI we loop `cargo build-sbf --manifest-path ...`). A single `cargo build-sbf` at the workspace root unifies features, so the registry gets the verifier's `cpi` / `no-entrypoint` feature and compiles to an empty 544 byte program. The first CI run caught this.

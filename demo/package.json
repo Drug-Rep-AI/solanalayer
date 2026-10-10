@@ -1,0 +1,16 @@
+{
+  "name": "@drugrep/demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Records the technical demo video of the deployed app with Playwright and assembles it with ffmpeg.",
+  "scripts": {
+    "record": "tsx record.ts",
+    "assemble": "tsx assemble.ts",
+    "video": "tsx record.ts && tsx assemble.ts"
+  },
+  "dependencies": {
+    "@solana/web3.js": "1.99.0",
+    "playwright": "1.64.0"
+  }
+}

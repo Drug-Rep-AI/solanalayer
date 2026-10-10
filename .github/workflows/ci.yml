@@ -39,7 +39,14 @@ jobs:
       - name: Format
         run: cargo fmt --all --check
       - name: Build programs (SBPF v3, same flags as anchor build)
-        run: cargo build-sbf --arch v3 --tools-version "$PLATFORM_TOOLS"
+        # One program at a time, like anchor build. A workspace wide build would
+        # unify features and compile the registry with the verifier's "cpi"
+        # (no-entrypoint) feature, producing an empty program.
+        run: |
+          for p in drugrep_registry drugrep_verifier; do
+            cargo build-sbf --manifest-path programs/$p/Cargo.toml --arch v3 --tools-version "$PLATFORM_TOOLS"
+          done
+          ls -la target/deploy/*.so
       - name: Clippy
         run: cargo clippy --all-targets -- -D warnings
       - name: Tests (LiteSVM, real Groth16 proofs)

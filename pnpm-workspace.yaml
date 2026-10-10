@@ -5,6 +5,7 @@ packages:
   - circuits
   - app
   - scripts
+  - demo
 allowBuilds:
   blake-hash: true
   bufferutil: true
