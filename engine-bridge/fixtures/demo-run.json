@@ -1,0 +1,1741 @@
+{
+  "demo": true,
+  "notice": "DEMO DATA. Illustrative fixture shaped like a DrugRep engine export. Not real model output and not real trial data.",
+  "run_id": "drugrep-demo-run-001",
+  "created_at": "2026-10-10T09:00:00Z",
+  "model": {
+    "name": "DrugRep engine",
+    "version": "demo-0.9.0",
+    "config": {
+      "layer1": "motif-binding",
+      "layer2": "disease-signature",
+      "layer3": "path-match",
+      "seed": 42
+    }
+  },
+  "inputs": {
+    "drug_universe": {
+      "source": "DrugBank approved",
+      "count": 4498
+    },
+    "disease_universe": {
+      "source": "PrimeKG",
+      "count": 5574
+    },
+    "protein_universe": {
+      "source": "UniProt",
+      "count": 9208
+    },
+    "query": {
+      "mode": "all-vs-all",
+      "min_score": 0.55
+    },
+    "id_note": "Demo identifiers. Disease IDs follow the PrimeKG MONDO grouped style."
+  },
+  "layer1": {
+    "drugs": [
+      {
+        "drugbank_id": "DB00203",
+        "name": "Sildenafil",
+        "motifs": [
+          {
+            "id": "M-PZP",
+            "name": "pyrazolopyrimidinone core"
+          },
+          {
+            "id": "M-MPS",
+            "name": "methylpiperazine sulfonyl"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "O76074",
+            "gene": "PDE5A",
+            "score": 0.95
+          },
+          {
+            "uniprot": "Q13976",
+            "gene": "PRKG1",
+            "score": 0.41
+          },
+          {
+            "uniprot": "P29474",
+            "gene": "NOS3",
+            "score": 0.22
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-PZP",
+            "protein": "O76074",
+            "residue": "Gln817",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-PZP",
+            "protein": "O76074",
+            "residue": "Phe820",
+            "interaction": "pi stacking"
+          },
+          {
+            "motif": "M-MPS",
+            "protein": "O76074",
+            "residue": "Leu765",
+            "interaction": "hydrophobic"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00820",
+        "name": "Tadalafil",
+        "motifs": [
+          {
+            "id": "M-BCB",
+            "name": "beta carboline"
+          },
+          {
+            "id": "M-BDO",
+            "name": "benzodioxole"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "O76074",
+            "gene": "PDE5A",
+            "score": 0.93
+          },
+          {
+            "uniprot": "Q13976",
+            "gene": "PRKG1",
+            "score": 0.38
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BCB",
+            "protein": "O76074",
+            "residue": "Gln817",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-BDO",
+            "protein": "O76074",
+            "residue": "Phe820",
+            "interaction": "pi stacking"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00571",
+        "name": "Propranolol",
+        "motifs": [
+          {
+            "id": "M-NAP",
+            "name": "naphthyloxy"
+          },
+          {
+            "id": "M-IPA",
+            "name": "isopropylamino propanol"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P07550",
+            "gene": "ADRB2",
+            "score": 0.91
+          },
+          {
+            "uniprot": "P15692",
+            "gene": "VEGFA",
+            "score": 0.18
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-IPA",
+            "protein": "P07550",
+            "residue": "Asp113",
+            "interaction": "salt bridge"
+          },
+          {
+            "motif": "M-IPA",
+            "protein": "P07550",
+            "residue": "Asn312",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB01041",
+        "name": "Thalidomide",
+        "motifs": [
+          {
+            "id": "M-GLU",
+            "name": "glutarimide"
+          },
+          {
+            "id": "M-PHT",
+            "name": "phthalimide"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q96SW2",
+            "gene": "CRBN",
+            "score": 0.92
+          },
+          {
+            "uniprot": "Q13422",
+            "gene": "IKZF1",
+            "score": 0.35
+          },
+          {
+            "uniprot": "Q9UKT9",
+            "gene": "IKZF3",
+            "score": 0.33
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-GLU",
+            "protein": "Q96SW2",
+            "residue": "Trp380",
+            "interaction": "hydrophobic cage"
+          },
+          {
+            "motif": "M-GLU",
+            "protein": "Q96SW2",
+            "residue": "His378",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00350",
+        "name": "Minoxidil",
+        "motifs": [
+          {
+            "id": "M-PYO",
+            "name": "pyrimidine N oxide"
+          },
+          {
+            "id": "M-PIP",
+            "name": "piperidinyl"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q15842",
+            "gene": "KCNJ8",
+            "score": 0.84
+          },
+          {
+            "uniprot": "O60706",
+            "gene": "ABCC9",
+            "score": 0.8
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-PYO",
+            "protein": "O60706",
+            "residue": "Arg1300",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB11817",
+        "name": "Baricitinib",
+        "motifs": [
+          {
+            "id": "M-PPY",
+            "name": "pyrrolopyrimidine"
+          },
+          {
+            "id": "M-AZS",
+            "name": "azetidine ethylsulfonyl"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P23458",
+            "gene": "JAK1",
+            "score": 0.94
+          },
+          {
+            "uniprot": "O60674",
+            "gene": "JAK2",
+            "score": 0.92
+          },
+          {
+            "uniprot": "Q2M2I8",
+            "gene": "AAK1",
+            "score": 0.61
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-PPY",
+            "protein": "P23458",
+            "residue": "Leu959",
+            "interaction": "hinge hydrogen bond"
+          },
+          {
+            "motif": "M-PPY",
+            "protein": "O60674",
+            "residue": "Leu932",
+            "interaction": "hinge hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB06292",
+        "name": "Dapagliflozin",
+        "motifs": [
+          {
+            "id": "M-CGL",
+            "name": "C glucoside"
+          },
+          {
+            "id": "M-DPM",
+            "name": "diarylmethane"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P31639",
+            "gene": "SLC5A2",
+            "score": 0.96
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-CGL",
+            "protein": "P31639",
+            "residue": "Gln457",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-DPM",
+            "protein": "P31639",
+            "residue": "His80",
+            "interaction": "pi stacking"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB01221",
+        "name": "Ketamine",
+        "motifs": [
+          {
+            "id": "M-ACH",
+            "name": "arylcyclohexylamine"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q13224",
+            "gene": "GRIN2B",
+            "score": 0.83
+          },
+          {
+            "uniprot": "Q05586",
+            "gene": "GRIN1",
+            "score": 0.8
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-ACH",
+            "protein": "Q05586",
+            "residue": "Asn616",
+            "interaction": "pore hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB01394",
+        "name": "Colchicine",
+        "motifs": [
+          {
+            "id": "M-TRO",
+            "name": "tropolone"
+          },
+          {
+            "id": "M-TMP",
+            "name": "trimethoxyphenyl"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P07437",
+            "gene": "TUBB",
+            "score": 0.9
+          },
+          {
+            "uniprot": "Q96P20",
+            "gene": "NLRP3",
+            "score": 0.34
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-TMP",
+            "protein": "P07437",
+            "residue": "Cys241",
+            "interaction": "hydrophobic"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00476",
+        "name": "Duloxetine",
+        "motifs": [
+          {
+            "id": "M-NAO",
+            "name": "naphthyloxy"
+          },
+          {
+            "id": "M-THI",
+            "name": "thiophene"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P31645",
+            "gene": "SLC6A4",
+            "score": 0.89
+          },
+          {
+            "uniprot": "P23975",
+            "gene": "SLC6A2",
+            "score": 0.82
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-NAO",
+            "protein": "P31645",
+            "residue": "Tyr95",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00678",
+        "name": "Losartan",
+        "motifs": [
+          {
+            "id": "M-BTZ",
+            "name": "biphenyl tetrazole"
+          },
+          {
+            "id": "M-IMZ",
+            "name": "imidazole"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P30556",
+            "gene": "AGTR1",
+            "score": 0.93
+          },
+          {
+            "uniprot": "P01137",
+            "gene": "TGFB1",
+            "score": 0.2
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BTZ",
+            "protein": "P30556",
+            "residue": "Arg167",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00331",
+        "name": "Metformin",
+        "motifs": [
+          {
+            "id": "M-BIG",
+            "name": "biguanide"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q13131",
+            "gene": "PRKAA1",
+            "score": 0.52
+          },
+          {
+            "uniprot": "P42345",
+            "gene": "MTOR",
+            "score": 0.31
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BIG",
+            "protein": "Q13131",
+            "residue": "Asp157",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB01611",
+        "name": "Hydroxychloroquine",
+        "motifs": [
+          {
+            "id": "M-QUN",
+            "name": "4 aminoquinoline"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q9NYK1",
+            "gene": "TLR7",
+            "score": 0.47
+          },
+          {
+            "uniprot": "Q9BYF1",
+            "gene": "ACE2",
+            "score": 0.21
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-QUN",
+            "protein": "Q9NYK1",
+            "residue": "Asp555",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB01167",
+        "name": "Itraconazole",
+        "motifs": [
+          {
+            "id": "M-TRZ",
+            "name": "triazole"
+          },
+          {
+            "id": "M-DOX",
+            "name": "dioxolane"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q99835",
+            "gene": "SMO",
+            "score": 0.71
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-TRZ",
+            "protein": "Q99835",
+            "residue": "Asp473",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00915",
+        "name": "Amantadine",
+        "motifs": [
+          {
+            "id": "M-ADM",
+            "name": "adamantane amine"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q05586",
+            "gene": "GRIN1",
+            "score": 0.58
+          },
+          {
+            "uniprot": "P14416",
+            "gene": "DRD2",
+            "score": 0.29
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-ADM",
+            "protein": "Q05586",
+            "residue": "Asn616",
+            "interaction": "pore hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00481",
+        "name": "Raloxifene",
+        "motifs": [
+          {
+            "id": "M-BTH",
+            "name": "benzothiophene"
+          },
+          {
+            "id": "M-PPE",
+            "name": "piperidinylethoxy"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P03372",
+            "gene": "ESR1",
+            "score": 0.95
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BTH",
+            "protein": "P03372",
+            "residue": "Glu353",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-PPE",
+            "protein": "P03372",
+            "residue": "Asp351",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB08908",
+        "name": "Dimethyl fumarate",
+        "motifs": [
+          {
+            "id": "M-FUM",
+            "name": "fumarate diester"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "Q14145",
+            "gene": "KEAP1",
+            "score": 0.66
+          },
+          {
+            "uniprot": "Q16236",
+            "gene": "NFE2L2",
+            "score": 0.4
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-FUM",
+            "protein": "Q14145",
+            "residue": "Cys151",
+            "interaction": "covalent"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00482",
+        "name": "Celecoxib",
+        "motifs": [
+          {
+            "id": "M-DPZ",
+            "name": "diaryl pyrazole"
+          },
+          {
+            "id": "M-SUL",
+            "name": "benzenesulfonamide"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P35354",
+            "gene": "PTGS2",
+            "score": 0.94
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-SUL",
+            "protein": "P35354",
+            "residue": "Arg513",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-SUL",
+            "protein": "P35354",
+            "residue": "His90",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB01076",
+        "name": "Atorvastatin",
+        "motifs": [
+          {
+            "id": "M-DHA",
+            "name": "dihydroxy heptanoic acid"
+          },
+          {
+            "id": "M-PYR",
+            "name": "pyrrole"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P04035",
+            "gene": "HMGCR",
+            "score": 0.95
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-DHA",
+            "protein": "P04035",
+            "residue": "Lys735",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "drugbank_id": "DB00996",
+        "name": "Gabapentin",
+        "motifs": [
+          {
+            "id": "M-GAB",
+            "name": "gamma amino acid"
+          }
+        ],
+        "binding": [
+          {
+            "uniprot": "P54289",
+            "gene": "CACNA2D1",
+            "score": 0.88
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-GAB",
+            "protein": "P54289",
+            "residue": "Arg217",
+            "interaction": "salt bridge"
+          }
+        ]
+      }
+    ]
+  },
+  "layer2": {
+    "diseases": [
+      {
+        "primekg_id": "15924",
+        "name": "pulmonary arterial hypertension",
+        "signature": [
+          {
+            "uniprot": "O76074",
+            "gene": "PDE5A",
+            "weight": 0.92
+          },
+          {
+            "uniprot": "Q13976",
+            "gene": "PRKG1",
+            "weight": 0.81
+          },
+          {
+            "uniprot": "P29474",
+            "gene": "NOS3",
+            "weight": 0.77
+          },
+          {
+            "uniprot": "P25101",
+            "gene": "EDNRA",
+            "weight": 0.74
+          },
+          {
+            "uniprot": "Q13873",
+            "gene": "BMPR2",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "primekg_id": "6513",
+        "name": "infantile hemangioma",
+        "signature": [
+          {
+            "uniprot": "P15692",
+            "gene": "VEGFA",
+            "weight": 0.86
+          },
+          {
+            "uniprot": "P07550",
+            "gene": "ADRB2",
+            "weight": 0.71
+          }
+        ]
+      },
+      {
+        "primekg_id": "9693",
+        "name": "multiple myeloma",
+        "signature": [
+          {
+            "uniprot": "Q13422",
+            "gene": "IKZF1",
+            "weight": 0.84
+          },
+          {
+            "uniprot": "Q9UKT9",
+            "gene": "IKZF3",
+            "weight": 0.82
+          },
+          {
+            "uniprot": "Q96SW2",
+            "gene": "CRBN",
+            "weight": 0.66
+          },
+          {
+            "uniprot": "P05231",
+            "gene": "IL6",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "primekg_id": "7094",
+        "name": "androgenetic alopecia",
+        "signature": [
+          {
+            "uniprot": "P10275",
+            "gene": "AR",
+            "weight": 0.88
+          },
+          {
+            "uniprot": "P31213",
+            "gene": "SRD5A2",
+            "weight": 0.85
+          },
+          {
+            "uniprot": "Q15842",
+            "gene": "KCNJ8",
+            "weight": 0.42
+          },
+          {
+            "uniprot": "O60706",
+            "gene": "ABCC9",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "primekg_id": "100096",
+        "name": "COVID-19",
+        "signature": [
+          {
+            "uniprot": "Q9BYF1",
+            "gene": "ACE2",
+            "weight": 0.9
+          },
+          {
+            "uniprot": "P05231",
+            "gene": "IL6",
+            "weight": 0.79
+          },
+          {
+            "uniprot": "Q2M2I8",
+            "gene": "AAK1",
+            "weight": 0.55
+          },
+          {
+            "uniprot": "P23458",
+            "gene": "JAK1",
+            "weight": 0.52
+          },
+          {
+            "uniprot": "Q9NYK1",
+            "gene": "TLR7",
+            "weight": 0.48
+          }
+        ]
+      },
+      {
+        "primekg_id": "5252",
+        "name": "heart failure",
+        "signature": [
+          {
+            "uniprot": "P16860",
+            "gene": "NPPB",
+            "weight": 0.9
+          },
+          {
+            "uniprot": "P31639",
+            "gene": "SLC5A2",
+            "weight": 0.44
+          },
+          {
+            "uniprot": "P29474",
+            "gene": "NOS3",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "primekg_id": "2050",
+        "name": "treatment resistant depression",
+        "signature": [
+          {
+            "uniprot": "Q13224",
+            "gene": "GRIN2B",
+            "weight": 0.8
+          },
+          {
+            "uniprot": "P23560",
+            "gene": "BDNF",
+            "weight": 0.78
+          },
+          {
+            "uniprot": "P31645",
+            "gene": "SLC6A4",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "primekg_id": "5010",
+        "name": "coronary artery disease",
+        "signature": [
+          {
+            "uniprot": "Q96P20",
+            "gene": "NLRP3",
+            "weight": 0.73
+          },
+          {
+            "uniprot": "P01584",
+            "gene": "IL1B",
+            "weight": 0.72
+          },
+          {
+            "uniprot": "P04035",
+            "gene": "HMGCR",
+            "weight": 0.68
+          },
+          {
+            "uniprot": "P07437",
+            "gene": "TUBB",
+            "weight": 0.3
+          }
+        ]
+      },
+      {
+        "primekg_id": "5546",
+        "name": "fibromyalgia",
+        "signature": [
+          {
+            "uniprot": "P31645",
+            "gene": "SLC6A4",
+            "weight": 0.69
+          },
+          {
+            "uniprot": "P23975",
+            "gene": "SLC6A2",
+            "weight": 0.66
+          },
+          {
+            "uniprot": "Q15858",
+            "gene": "SCN9A",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "primekg_id": "7947",
+        "name": "Marfan syndrome",
+        "signature": [
+          {
+            "uniprot": "P35555",
+            "gene": "FBN1",
+            "weight": 0.95
+          },
+          {
+            "uniprot": "P01137",
+            "gene": "TGFB1",
+            "weight": 0.82
+          },
+          {
+            "uniprot": "P30556",
+            "gene": "AGTR1",
+            "weight": 0.58
+          }
+        ]
+      },
+      {
+        "primekg_id": "7254",
+        "name": "breast cancer",
+        "signature": [
+          {
+            "uniprot": "P03372",
+            "gene": "ESR1",
+            "weight": 0.91
+          },
+          {
+            "uniprot": "P42345",
+            "gene": "MTOR",
+            "weight": 0.62
+          },
+          {
+            "uniprot": "Q13131",
+            "gene": "PRKAA1",
+            "weight": 0.35
+          }
+        ]
+      },
+      {
+        "primekg_id": "20804",
+        "name": "basal cell carcinoma",
+        "signature": [
+          {
+            "uniprot": "Q13635",
+            "gene": "PTCH1",
+            "weight": 0.93
+          },
+          {
+            "uniprot": "Q99835",
+            "gene": "SMO",
+            "weight": 0.9
+          },
+          {
+            "uniprot": "P08151",
+            "gene": "GLI1",
+            "weight": 0.85
+          }
+        ]
+      },
+      {
+        "primekg_id": "5180",
+        "name": "Parkinson disease",
+        "signature": [
+          {
+            "uniprot": "P37840",
+            "gene": "SNCA",
+            "weight": 0.92
+          },
+          {
+            "uniprot": "P14416",
+            "gene": "DRD2",
+            "weight": 0.8
+          },
+          {
+            "uniprot": "Q05586",
+            "gene": "GRIN1",
+            "weight": 0.45
+          }
+        ]
+      },
+      {
+        "primekg_id": "5083",
+        "name": "psoriasis",
+        "signature": [
+          {
+            "uniprot": "Q9NPF7",
+            "gene": "IL23A",
+            "weight": 0.9
+          },
+          {
+            "uniprot": "P01375",
+            "gene": "TNF",
+            "weight": 0.84
+          },
+          {
+            "uniprot": "Q16236",
+            "gene": "NFE2L2",
+            "weight": 0.42
+          },
+          {
+            "uniprot": "Q14145",
+            "gene": "KEAP1",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "primekg_id": "21055",
+        "name": "familial adenomatous polyposis",
+        "signature": [
+          {
+            "uniprot": "P25054",
+            "gene": "APC",
+            "weight": 0.97
+          },
+          {
+            "uniprot": "P35354",
+            "gene": "PTGS2",
+            "weight": 0.74
+          }
+        ]
+      },
+      {
+        "primekg_id": "5301",
+        "name": "multiple sclerosis",
+        "signature": [
+          {
+            "uniprot": "P01375",
+            "gene": "TNF",
+            "weight": 0.6
+          },
+          {
+            "uniprot": "P04035",
+            "gene": "HMGCR",
+            "weight": 0.3
+          },
+          {
+            "uniprot": "Q16236",
+            "gene": "NFE2L2",
+            "weight": 0.35
+          }
+        ]
+      },
+      {
+        "primekg_id": "6008",
+        "name": "postherpetic neuralgia",
+        "signature": [
+          {
+            "uniprot": "P54289",
+            "gene": "CACNA2D1",
+            "weight": 0.82
+          },
+          {
+            "uniprot": "Q15858",
+            "gene": "SCN9A",
+            "weight": 0.8
+          }
+        ]
+      }
+    ]
+  },
+  "layer3": {
+    "top_k": 20,
+    "predictions": [
+      {
+        "rank": 1,
+        "drugbank_id": "DB00203",
+        "drug_name": "Sildenafil",
+        "primekg_id": "15924",
+        "disease_name": "pulmonary arterial hypertension",
+        "score": 0.94,
+        "protein_path": [
+          {
+            "uniprot": "O76074",
+            "gene": "PDE5A",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q13976",
+            "gene": "PRKG1",
+            "role": "cGMP effector"
+          },
+          {
+            "uniprot": "P29474",
+            "gene": "NOS3",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-PZP",
+            "protein": "O76074",
+            "residue": "Gln817",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-PZP",
+            "protein": "O76074",
+            "residue": "Phe820",
+            "interaction": "pi stacking"
+          },
+          {
+            "motif": "M-MPS",
+            "protein": "O76074",
+            "residue": "Leu765",
+            "interaction": "hydrophobic"
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "drugbank_id": "DB00820",
+        "drug_name": "Tadalafil",
+        "primekg_id": "15924",
+        "disease_name": "pulmonary arterial hypertension",
+        "score": 0.91,
+        "protein_path": [
+          {
+            "uniprot": "O76074",
+            "gene": "PDE5A",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q13976",
+            "gene": "PRKG1",
+            "role": "cGMP effector"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BCB",
+            "protein": "O76074",
+            "residue": "Gln817",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-BDO",
+            "protein": "O76074",
+            "residue": "Phe820",
+            "interaction": "pi stacking"
+          }
+        ]
+      },
+      {
+        "rank": 3,
+        "drugbank_id": "DB00571",
+        "drug_name": "Propranolol",
+        "primekg_id": "6513",
+        "disease_name": "infantile hemangioma",
+        "score": 0.88,
+        "protein_path": [
+          {
+            "uniprot": "P07550",
+            "gene": "ADRB2",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P15692",
+            "gene": "VEGFA",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-IPA",
+            "protein": "P07550",
+            "residue": "Asp113",
+            "interaction": "salt bridge"
+          },
+          {
+            "motif": "M-IPA",
+            "protein": "P07550",
+            "residue": "Asn312",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 4,
+        "drugbank_id": "DB01041",
+        "drug_name": "Thalidomide",
+        "primekg_id": "9693",
+        "disease_name": "multiple myeloma",
+        "score": 0.86,
+        "protein_path": [
+          {
+            "uniprot": "Q96SW2",
+            "gene": "CRBN",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q13422",
+            "gene": "IKZF1",
+            "role": "degraded substrate"
+          },
+          {
+            "uniprot": "Q9UKT9",
+            "gene": "IKZF3",
+            "role": "degraded substrate"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-GLU",
+            "protein": "Q96SW2",
+            "residue": "Trp380",
+            "interaction": "hydrophobic cage"
+          },
+          {
+            "motif": "M-GLU",
+            "protein": "Q96SW2",
+            "residue": "His378",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 5,
+        "drugbank_id": "DB00350",
+        "drug_name": "Minoxidil",
+        "primekg_id": "7094",
+        "disease_name": "androgenetic alopecia",
+        "score": 0.84,
+        "protein_path": [
+          {
+            "uniprot": "Q15842",
+            "gene": "KCNJ8",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "O60706",
+            "gene": "ABCC9",
+            "role": "channel subunit"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-PYO",
+            "protein": "O60706",
+            "residue": "Arg1300",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 6,
+        "drugbank_id": "DB11817",
+        "drug_name": "Baricitinib",
+        "primekg_id": "100096",
+        "disease_name": "COVID-19",
+        "score": 0.82,
+        "protein_path": [
+          {
+            "uniprot": "P23458",
+            "gene": "JAK1",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q2M2I8",
+            "gene": "AAK1",
+            "role": "entry regulator"
+          },
+          {
+            "uniprot": "P05231",
+            "gene": "IL6",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-PPY",
+            "protein": "P23458",
+            "residue": "Leu959",
+            "interaction": "hinge hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 7,
+        "drugbank_id": "DB06292",
+        "drug_name": "Dapagliflozin",
+        "primekg_id": "5252",
+        "disease_name": "heart failure",
+        "score": 0.81,
+        "protein_path": [
+          {
+            "uniprot": "P31639",
+            "gene": "SLC5A2",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P16860",
+            "gene": "NPPB",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-CGL",
+            "protein": "P31639",
+            "residue": "Gln457",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-DPM",
+            "protein": "P31639",
+            "residue": "His80",
+            "interaction": "pi stacking"
+          }
+        ]
+      },
+      {
+        "rank": 8,
+        "drugbank_id": "DB01221",
+        "drug_name": "Ketamine",
+        "primekg_id": "2050",
+        "disease_name": "treatment resistant depression",
+        "score": 0.79,
+        "protein_path": [
+          {
+            "uniprot": "Q13224",
+            "gene": "GRIN2B",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P23560",
+            "gene": "BDNF",
+            "role": "downstream effector"
+          }
+        ],
+        "motif_residue_pairs": []
+      },
+      {
+        "rank": 9,
+        "drugbank_id": "DB01394",
+        "drug_name": "Colchicine",
+        "primekg_id": "5010",
+        "disease_name": "coronary artery disease",
+        "score": 0.77,
+        "protein_path": [
+          {
+            "uniprot": "P07437",
+            "gene": "TUBB",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q96P20",
+            "gene": "NLRP3",
+            "role": "inflammasome"
+          },
+          {
+            "uniprot": "P01584",
+            "gene": "IL1B",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-TMP",
+            "protein": "P07437",
+            "residue": "Cys241",
+            "interaction": "hydrophobic"
+          }
+        ]
+      },
+      {
+        "rank": 10,
+        "drugbank_id": "DB00476",
+        "drug_name": "Duloxetine",
+        "primekg_id": "5546",
+        "disease_name": "fibromyalgia",
+        "score": 0.75,
+        "protein_path": [
+          {
+            "uniprot": "P31645",
+            "gene": "SLC6A4",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P23975",
+            "gene": "SLC6A2",
+            "role": "binding target"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-NAO",
+            "protein": "P31645",
+            "residue": "Tyr95",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 11,
+        "drugbank_id": "DB00678",
+        "drug_name": "Losartan",
+        "primekg_id": "7947",
+        "disease_name": "Marfan syndrome",
+        "score": 0.74,
+        "protein_path": [
+          {
+            "uniprot": "P30556",
+            "gene": "AGTR1",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P01137",
+            "gene": "TGFB1",
+            "role": "pathway node"
+          },
+          {
+            "uniprot": "P35555",
+            "gene": "FBN1",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BTZ",
+            "protein": "P30556",
+            "residue": "Arg167",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "rank": 12,
+        "drugbank_id": "DB00331",
+        "drug_name": "Metformin",
+        "primekg_id": "7254",
+        "disease_name": "breast cancer",
+        "score": 0.72,
+        "protein_path": [
+          {
+            "uniprot": "Q13131",
+            "gene": "PRKAA1",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P42345",
+            "gene": "MTOR",
+            "role": "pathway node"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BIG",
+            "protein": "Q13131",
+            "residue": "Asp157",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "rank": 13,
+        "drugbank_id": "DB01611",
+        "drug_name": "Hydroxychloroquine",
+        "primekg_id": "100096",
+        "disease_name": "COVID-19",
+        "score": 0.7,
+        "protein_path": [
+          {
+            "uniprot": "Q9NYK1",
+            "gene": "TLR7",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q9BYF1",
+            "gene": "ACE2",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-QUN",
+            "protein": "Q9NYK1",
+            "residue": "Asp555",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "rank": 14,
+        "drugbank_id": "DB01167",
+        "drug_name": "Itraconazole",
+        "primekg_id": "20804",
+        "disease_name": "basal cell carcinoma",
+        "score": 0.69,
+        "protein_path": [
+          {
+            "uniprot": "Q99835",
+            "gene": "SMO",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P08151",
+            "gene": "GLI1",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-TRZ",
+            "protein": "Q99835",
+            "residue": "Asp473",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 15,
+        "drugbank_id": "DB00915",
+        "drug_name": "Amantadine",
+        "primekg_id": "5180",
+        "disease_name": "Parkinson disease",
+        "score": 0.68,
+        "protein_path": [
+          {
+            "uniprot": "Q05586",
+            "gene": "GRIN1",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P14416",
+            "gene": "DRD2",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-ADM",
+            "protein": "Q05586",
+            "residue": "Asn616",
+            "interaction": "pore hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 16,
+        "drugbank_id": "DB00481",
+        "drug_name": "Raloxifene",
+        "primekg_id": "7254",
+        "disease_name": "breast cancer",
+        "score": 0.66,
+        "protein_path": [
+          {
+            "uniprot": "P03372",
+            "gene": "ESR1",
+            "role": "binding target"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-BTH",
+            "protein": "P03372",
+            "residue": "Glu353",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-PPE",
+            "protein": "P03372",
+            "residue": "Asp351",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "rank": 17,
+        "drugbank_id": "DB08908",
+        "drug_name": "Dimethyl fumarate",
+        "primekg_id": "5083",
+        "disease_name": "psoriasis",
+        "score": 0.64,
+        "protein_path": [
+          {
+            "uniprot": "Q14145",
+            "gene": "KEAP1",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q16236",
+            "gene": "NFE2L2",
+            "role": "released factor"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-FUM",
+            "protein": "Q14145",
+            "residue": "Cys151",
+            "interaction": "covalent"
+          }
+        ]
+      },
+      {
+        "rank": 18,
+        "drugbank_id": "DB00482",
+        "drug_name": "Celecoxib",
+        "primekg_id": "21055",
+        "disease_name": "familial adenomatous polyposis",
+        "score": 0.62,
+        "protein_path": [
+          {
+            "uniprot": "P35354",
+            "gene": "PTGS2",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "P25054",
+            "gene": "APC",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-SUL",
+            "protein": "P35354",
+            "residue": "Arg513",
+            "interaction": "hydrogen bond"
+          },
+          {
+            "motif": "M-SUL",
+            "protein": "P35354",
+            "residue": "His90",
+            "interaction": "hydrogen bond"
+          }
+        ]
+      },
+      {
+        "rank": 19,
+        "drugbank_id": "DB01076",
+        "drug_name": "Atorvastatin",
+        "primekg_id": "5301",
+        "disease_name": "multiple sclerosis",
+        "score": 0.6,
+        "protein_path": [
+          {
+            "uniprot": "P04035",
+            "gene": "HMGCR",
+            "role": "binding target"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-DHA",
+            "protein": "P04035",
+            "residue": "Lys735",
+            "interaction": "salt bridge"
+          }
+        ]
+      },
+      {
+        "rank": 20,
+        "drugbank_id": "DB00996",
+        "drug_name": "Gabapentin",
+        "primekg_id": "6008",
+        "disease_name": "postherpetic neuralgia",
+        "score": 0.58,
+        "protein_path": [
+          {
+            "uniprot": "P54289",
+            "gene": "CACNA2D1",
+            "role": "binding target"
+          },
+          {
+            "uniprot": "Q15858",
+            "gene": "SCN9A",
+            "role": "disease signature"
+          }
+        ],
+        "motif_residue_pairs": [
+          {
+            "motif": "M-GAB",
+            "protein": "P54289",
+            "residue": "Arg217",
+            "interaction": "salt bridge"
+          }
+        ]
+      }
+    ]
+  }
+}

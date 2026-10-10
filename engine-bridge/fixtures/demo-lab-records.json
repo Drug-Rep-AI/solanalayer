@@ -1,0 +1,138 @@
+{
+  "demo": true,
+  "notice": "DEMO DATA. Simulated lab labels, not real trial or patient data.",
+  "records": [
+    {
+      "drugbank_id": "DB00203",
+      "primekg_id": "15924",
+      "outcome": 1,
+      "label": "sildenafil / pulmonary arterial hypertension"
+    },
+    {
+      "drugbank_id": "DB00820",
+      "primekg_id": "15924",
+      "outcome": 1,
+      "label": "tadalafil / pulmonary arterial hypertension"
+    },
+    {
+      "drugbank_id": "DB01041",
+      "primekg_id": "9693",
+      "outcome": 1,
+      "label": "thalidomide / multiple myeloma"
+    },
+    {
+      "drugbank_id": "DB11817",
+      "primekg_id": "100096",
+      "outcome": 1,
+      "label": "baricitinib / COVID-19"
+    },
+    {
+      "drugbank_id": "DB06292",
+      "primekg_id": "5252",
+      "outcome": 1,
+      "label": "dapagliflozin / heart failure"
+    },
+    {
+      "drugbank_id": "DB01221",
+      "primekg_id": "2050",
+      "outcome": 1,
+      "label": "ketamine / treatment resistant depression"
+    },
+    {
+      "drugbank_id": "DB00915",
+      "primekg_id": "5180",
+      "outcome": 1,
+      "label": "amantadine / Parkinson disease"
+    },
+    {
+      "drugbank_id": "DB08908",
+      "primekg_id": "5083",
+      "outcome": 1,
+      "label": "dimethyl fumarate / psoriasis"
+    },
+    {
+      "drugbank_id": "DB00678",
+      "primekg_id": "7947",
+      "outcome": 0,
+      "label": "losartan / Marfan syndrome"
+    },
+    {
+      "drugbank_id": "DB00331",
+      "primekg_id": "7254",
+      "outcome": 0,
+      "label": "metformin / breast cancer"
+    },
+    {
+      "drugbank_id": "DB01611",
+      "primekg_id": "100096",
+      "outcome": 0,
+      "label": "hydroxychloroquine / COVID-19"
+    },
+    {
+      "drugbank_id": "DB01076",
+      "primekg_id": "5301",
+      "outcome": 0,
+      "label": "atorvastatin / multiple sclerosis"
+    },
+    {
+      "drugbank_id": "DB01156",
+      "primekg_id": "4000",
+      "outcome": 1,
+      "label": "bupropion / smoking cessation"
+    },
+    {
+      "drugbank_id": "DB00273",
+      "primekg_id": "5277",
+      "outcome": 1,
+      "label": "topiramate / migraine"
+    },
+    {
+      "drugbank_id": "DB00945",
+      "primekg_id": "5575",
+      "outcome": 1,
+      "label": "aspirin / colorectal cancer"
+    },
+    {
+      "drugbank_id": "DB01216",
+      "primekg_id": "7094",
+      "outcome": 1,
+      "label": "finasteride / androgenetic alopecia"
+    },
+    {
+      "drugbank_id": "DB00563",
+      "primekg_id": "8383",
+      "outcome": 0,
+      "label": "methotrexate / osteoarthritis"
+    },
+    {
+      "drugbank_id": "DB00641",
+      "primekg_id": "4975",
+      "outcome": 0,
+      "label": "simvastatin / Alzheimer disease"
+    },
+    {
+      "drugbank_id": "DB00959",
+      "primekg_id": "5147",
+      "outcome": 0,
+      "label": "methylprednisolone / type 2 diabetes"
+    },
+    {
+      "drugbank_id": "DB00586",
+      "primekg_id": "5090",
+      "outcome": 1,
+      "label": "diclofenac / actinic keratosis"
+    },
+    {
+      "drugbank_id": "DB01088",
+      "primekg_id": "2009",
+      "outcome": 0,
+      "label": "iloprost / major depressive disorder"
+    },
+    {
+      "drugbank_id": "DB00175",
+      "primekg_id": "5148",
+      "outcome": 1,
+      "label": "pravastatin / hypercholesterolemia"
+    }
+  ]
+}

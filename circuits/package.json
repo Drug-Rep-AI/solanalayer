@@ -1,0 +1,21 @@
+{
+  "name": "@drugrep/circuits",
+  "version": "0.1.0",
+  "private": true,
+  "description": "trial_match Groth16 circuit (Circom, BN254) for DrugRep zero knowledge trial matching.",
+  "type": "module",
+  "scripts": {
+    "compile": "bash scripts/compile.sh",
+    "setup": "bash scripts/setup.sh",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@drugrep/sdk": "workspace:*",
+    "circomlib": "2.0.5",
+    "snarkjs": "0.7.6"
+  },
+  "devDependencies": {
+    "vitest": "5.0.3"
+  }
+}
