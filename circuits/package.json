@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "compile": "bash scripts/compile.sh",
-    "setup": "bash scripts/setup.sh",
+    "setup": "bash scripts/setup.sh && tsx scripts/make-test-vectors.ts",
+    "vectors": "tsx scripts/make-test-vectors.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
