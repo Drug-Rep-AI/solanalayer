@@ -6,3 +6,4 @@ export * from "./merkle.js";
 export * from "./types.js";
 export * from "./commitments.js";
 export * from "./proof.js";
+export * from "./client.js";

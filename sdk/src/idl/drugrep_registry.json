@@ -1,0 +1,857 @@
+{
+  "address": "Heqv7iDHvG2YGsiMnXMNSTgMxAAcWja1QoFx4fGnd7xt",
+  "metadata": {
+    "name": "drugrep_registry",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "DrugRep Proof Layer registry: labs, private dataset roots and engine prediction runs"
+  },
+  "instructions": [
+    {
+      "name": "commit_dataset",
+      "discriminator": [
+        149,
+        9,
+        95,
+        126,
+        136,
+        203,
+        223,
+        14
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "lab"
+          ]
+        },
+        {
+          "name": "lab",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  98
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dataset",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  97,
+                  116,
+                  97,
+                  115,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lab"
+              },
+              {
+                "kind": "arg",
+                "path": "dataset_root"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "dataset_root",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "record_count",
+          "type": "u32"
+        },
+        {
+          "name": "schema_version",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "commit_prediction_run",
+      "discriminator": [
+        131,
+        56,
+        64,
+        49,
+        204,
+        135,
+        94,
+        255
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "run",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  117,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "run_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "run_id",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "model_version_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "input_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "layer1_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "layer2_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "layer3_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "predictions_root",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "top_k",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "register_lab",
+      "discriminator": [
+        246,
+        33,
+        154,
+        63,
+        92,
+        59,
+        234,
+        28
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "lab",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  98
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "revoke_dataset",
+      "discriminator": [
+        32,
+        210,
+        164,
+        71,
+        60,
+        42,
+        137,
+        85
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "lab"
+          ]
+        },
+        {
+          "name": "lab",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  97,
+                  98
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dataset",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  97,
+                  116,
+                  97,
+                  115,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lab"
+              },
+              {
+                "kind": "account",
+                "path": "dataset.dataset_root",
+                "account": "Dataset"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Dataset",
+      "discriminator": [
+        242,
+        85,
+        87,
+        90,
+        234,
+        188,
+        241,
+        17
+      ]
+    },
+    {
+      "name": "Lab",
+      "discriminator": [
+        238,
+        80,
+        146,
+        49,
+        216,
+        167,
+        224,
+        7
+      ]
+    },
+    {
+      "name": "PredictionRun",
+      "discriminator": [
+        220,
+        135,
+        232,
+        108,
+        68,
+        92,
+        57,
+        188
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "DatasetCommitted",
+      "discriminator": [
+        206,
+        73,
+        227,
+        60,
+        148,
+        82,
+        251,
+        249
+      ]
+    },
+    {
+      "name": "DatasetRevoked",
+      "discriminator": [
+        91,
+        69,
+        206,
+        23,
+        99,
+        249,
+        147,
+        220
+      ]
+    },
+    {
+      "name": "LabRegistered",
+      "discriminator": [
+        177,
+        75,
+        112,
+        197,
+        255,
+        201,
+        101,
+        20
+      ]
+    },
+    {
+      "name": "PredictionRunCommitted",
+      "discriminator": [
+        106,
+        6,
+        12,
+        142,
+        82,
+        175,
+        252,
+        78
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidRoot",
+      "msg": "Root must be a non zero BN254 field element"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidRecordCount",
+      "msg": "Record count must be between 1 and 2^32 - 1"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidTopK",
+      "msg": "top_k must be between 1 and MAX_TOP_K"
+    },
+    {
+      "code": 6003,
+      "name": "Unauthorized",
+      "msg": "Only the lab authority can do this"
+    },
+    {
+      "code": 6004,
+      "name": "AlreadyRevoked",
+      "msg": "Dataset is already revoked"
+    },
+    {
+      "code": 6005,
+      "name": "EmptyHash",
+      "msg": "Hash must not be all zeros"
+    }
+  ],
+  "types": [
+    {
+      "name": "Dataset",
+      "docs": [
+        "A committed private dataset. PDA: [\"dataset\", lab, dataset_root].",
+        "Only the Poseidon root is stored; the salted labels stay with the lab."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lab",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "dataset_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "record_count",
+            "type": "u32"
+          },
+          {
+            "name": "schema_version",
+            "type": "u16"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "revoked",
+            "type": "bool"
+          },
+          {
+            "name": "revoked_slot",
+            "type": "u64"
+          },
+          {
+            "name": "revoked_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DatasetCommitted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "dataset",
+            "type": "pubkey"
+          },
+          {
+            "name": "lab",
+            "type": "pubkey"
+          },
+          {
+            "name": "dataset_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "record_count",
+            "type": "u32"
+          },
+          {
+            "name": "schema_version",
+            "type": "u16"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DatasetRevoked",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "dataset",
+            "type": "pubkey"
+          },
+          {
+            "name": "lab",
+            "type": "pubkey"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Lab",
+      "docs": [
+        "A data owner. PDA: [\"lab\", authority]."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "name_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "dataset_count",
+            "type": "u32"
+          },
+          {
+            "name": "created_slot",
+            "type": "u64"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LabRegistered",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lab",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "name_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PredictionRun",
+      "docs": [
+        "One DrugRep engine run. PDA: [\"run\", run_id]."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "run_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "model_version_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "input_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "layer1_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "layer2_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "layer3_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "predictions_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "top_k",
+            "type": "u16"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PredictionRunCommitted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "run",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "run_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "model_version_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "input_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "layer1_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "layer2_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "layer3_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "predictions_root",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "top_k",
+            "type": "u16"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}
