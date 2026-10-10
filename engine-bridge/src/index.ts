@@ -1,5 +1,5 @@
-export * from "./engine.js";
-export * from "./bridge.js";
+export * from "./engine";
+export * from "./bridge";
 import demoRun from "../fixtures/demo-run.json" with { type: "json" };
 import type { RunExport } from "@drugrep/sdk";
 

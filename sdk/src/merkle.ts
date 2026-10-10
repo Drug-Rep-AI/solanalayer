@@ -1,4 +1,4 @@
-import { poseidonHasher } from "./poseidon.js";
+import { poseidonHasher } from "./poseidon";
 
 /**
  * Binary Poseidon Merkle root, level by level. Mirrors `MerkleRoot(DEPTH)`

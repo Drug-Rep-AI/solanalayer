@@ -1,9 +1,9 @@
-import { MAX_LABELS, MAX_PREDICTIONS } from "./constants.js";
-import { bigintToBytes32, fieldToHex, randomFieldElement } from "./bytes.js";
-import { hashJson, pairId, sha256Bytes } from "./hashing.js";
-import { merkleRoot } from "./merkle.js";
-import { poseidon, poseidonHasher } from "./poseidon.js";
-import type { LabRecord, RunExport } from "./types.js";
+import { MAX_LABELS, MAX_PREDICTIONS } from "./constants";
+import { bigintToBytes32, fieldToHex, randomFieldElement } from "./bytes";
+import { hashJson, pairId, sha256Bytes } from "./hashing";
+import { merkleRoot } from "./merkle";
+import { poseidon, poseidonHasher } from "./poseidon";
+import type { LabRecord, RunExport } from "./types";
 
 export interface RunHashes {
   runId: Uint8Array;

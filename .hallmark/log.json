@@ -1,0 +1,13 @@
+[
+  {
+    "date": "2026-10-10",
+    "macrostructure": "Map / Diagram (overview) + Narrative Workflow stages",
+    "theme": "custom",
+    "theme_axes": "light / grotesk-sans / chromatic-other",
+    "vibe": "calm lab notebook, verifiable, green ink",
+    "enrichment": "E5 hand-built HTML/CSS diagram",
+    "nav": "N1b stage stepper",
+    "footer": "Ft2 inline",
+    "brief": "DrugRep Proof Layer · Solana devnet POC app"
+  }
+]

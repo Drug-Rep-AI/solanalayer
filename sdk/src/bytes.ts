@@ -1,4 +1,4 @@
-import { FR_MODULUS } from "./constants.js";
+import { FR_MODULUS } from "./constants";
 
 export function bigintToBytes32(value: bigint): Uint8Array {
   if (value < 0n) throw new Error("negative value");

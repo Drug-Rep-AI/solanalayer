@@ -3,11 +3,14 @@ packages:
   - engine-bridge
   - lab-sim
   - circuits
+  - app
   - scripts
 allowBuilds:
   blake-hash: true
   bufferutil: true
   esbuild: true
   utf-8-validate: true
+  unrs-resolver: true
+  sharp: false
 minimumReleaseAgeExclude:
   - '@types/node@26.6.5'

@@ -1,5 +1,5 @@
-import { FQ_MODULUS } from "./constants.js";
-import { bigintToBytes32 } from "./bytes.js";
+import { FQ_MODULUS } from "./constants";
+import { bigintToBytes32 } from "./bytes";
 
 /** snarkjs Groth16 proof JSON. */
 export interface SnarkjsProof {

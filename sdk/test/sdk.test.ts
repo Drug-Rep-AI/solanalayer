@@ -81,3 +81,15 @@ describe("encoding", () => {
     expect(pda.run(runId).toBase58()).toBe(pda.run(runId).toBase58());
   });
 });
+
+describe("poseidon", () => {
+  it("matches circomlibjs (the reference for circomlib's circuit Poseidon)", async () => {
+    // @ts-expect-error circomlibjs ships no types
+    const { buildPoseidon } = await import("circomlibjs");
+    const ref = await buildPoseidon();
+    const h = await poseidonHasher();
+    for (const inputs of [[1n], [1n, 2n], [3n, 4n, 5n], [FR_MODULUS - 1n, 7n]]) {
+      expect(h(inputs)).toBe(ref.F.toObject(ref(inputs)));
+    }
+  });
+});

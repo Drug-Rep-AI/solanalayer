@@ -8,12 +8,12 @@ import {
 } from "@solana/web3.js";
 import registryIdl from "./idl/drugrep_registry.json" with { type: "json" };
 import verifierIdl from "./idl/drugrep_verifier.json" with { type: "json" };
-import type { DrugrepRegistry } from "./idl/drugrep_registry.js";
-import type { DrugrepVerifier } from "./idl/drugrep_verifier.js";
-import { REGISTRY_PROGRAM_ID, SEEDS, VERIFIER_PROGRAM_ID, LABEL_SCHEMA_VERSION } from "./constants.js";
-import type { RunHashes } from "./commitments.js";
-import type { SolanaProof } from "./proof.js";
-import { bigintToBytes32 } from "./bytes.js";
+import type { DrugrepRegistry } from "./idl/drugrep_registry";
+import type { DrugrepVerifier } from "./idl/drugrep_verifier";
+import { REGISTRY_PROGRAM_ID, SEEDS, VERIFIER_PROGRAM_ID, LABEL_SCHEMA_VERSION } from "./constants";
+import type { RunHashes } from "./commitments";
+import type { SolanaProof } from "./proof";
+import { bigintToBytes32 } from "./bytes";
 
 export type { DrugrepRegistry, DrugrepVerifier };
 export { registryIdl, verifierIdl };

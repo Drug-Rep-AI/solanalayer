@@ -35,3 +35,18 @@ Decisions and library quirks found while building the POC. Newest last.
 - `PredictionRun` is permissionless and records its committer (`authority`). The UI and README show the committer; production would gate this behind an engine authority or a Solana Attestation Service credential.
 - Revocation: `revoke_dataset` flips the Dataset. Because a program cannot enumerate every record that used a dataset, the verifier has a permissionless `sync_revocation` instruction that copies the flag onto a ValidationRecord, and the app also treats a record as revoked whenever its dataset is revoked.
 - `Dataset` PDA seeds are `["dataset", lab, dataset_root]` (per lab), so another wallet cannot squat a lab's root before the lab commits it.
+
+## Frontend
+
+- Next.js 16 (Turbopack) with `output: "export"`: the app is fully static, so it deploys anywhere (Vercel, or GitHub Pages as a fallback). All chain reads go straight from the browser to the RPC.
+- Turbopack did not resolve `./file.js` specifiers to `.ts` sources inside the workspace packages ("module has no exports"). The TS packages now use extensionless relative imports, which both Turbopack and `tsx` accept.
+- `circomlibjs` pulls ethers and Node internals into the browser bundle, so the SDK uses `poseidon-lite` for Poseidon. `sdk/test` cross-checks it against `circomlibjs` on several inputs, and the circuit tests prove with roots computed by `poseidon-lite`.
+- snarkjs runs in the browser from its own prebuilt bundle (`/zk/snarkjs.min.js`), copied together with the wasm and zkey by `app/scripts/copy-zk.mjs`. This avoids bundling snarkjs' Node code paths. Measured proving time on an M series laptop: about 2 seconds.
+- Wallets: any Wallet Standard wallet (Phantom, Solflare, Backpack) is discovered automatically. The app also lists a "Demo wallet (devnet burner)" adapter whose key lives in localStorage, so judges can try the flow without a wallet extension. It is labelled devnet only.
+- Private state (prediction salts, lab labels, lab secret) is kept in the browser's localStorage and in files the user downloads. Proving needs it, so a proof must be generated in the browser that committed the run and the dataset (or from the private files).
+- `@solana/wallet-adapter-*` is used as the brief asks, even though newer Solana tooling prefers Kit based wallet plugins. `@anchor-lang/core` 1.2 still builds on web3.js v1, which keeps the two compatible.
+- Revoking a dataset in the lab console also calls `sync_revocation` for every validation that used it, in the same transaction.
+
+## Devnet funding
+
+- The public devnet faucet returned 429 for this machine's IP for the whole session (`requestAirdrop` and `solana airdrop` both). Other public RPCs require API keys for airdrops. The deployer wallet `9hG7Cft6LMVKfmfr9wVUv8c5NipZ8hW7MHgefTWfderP` needs about 3 SOL to deploy both programs (each is about 180 KB). Until it is funded, everything was verified on a local validator (`solana-test-validator` 4.1.2 with both programs preloaded): Rust tests, `scripts/e2e-devnet.ts`, and the full UI flow in a browser.

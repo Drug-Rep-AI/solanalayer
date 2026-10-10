@@ -14,7 +14,7 @@ import { fileURLToPath } from "node:url";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { explorer, fieldToHex, getPrograms, type LabRecord } from "@drugrep/sdk";
 import { keypairWallet, loadKeypair, rpcUrl } from "@drugrep/sdk/node";
-import { commitLabDataset, generateLabDataset, loadLabDataset, revokeLabDataset, serializeDataset } from "./index.js";
+import { commitLabDataset, generateLabDataset, loadLabDataset, revokeLabDataset, serializeDataset } from "./index";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const [cmd, ...args] = process.argv.slice(2);

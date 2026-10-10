@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 import { Connection } from "@solana/web3.js";
 import { explorer, getPrograms } from "@drugrep/sdk";
 import { keypairWallet, loadKeypair, rpcUrl } from "@drugrep/sdk/node";
-import { FixtureEngineSource, HttpEngineSource, type EngineSource } from "./engine.js";
-import { commitRun, describePrepared, predictionSecrets, prepareRun } from "./bridge.js";
+import { FixtureEngineSource, HttpEngineSource, type EngineSource } from "./engine";
+import { commitRun, describePrepared, predictionSecrets, prepareRun } from "./bridge";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);

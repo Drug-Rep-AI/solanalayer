@@ -1,0 +1,72 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Map / Diagram (overview) + Narrative Workflow (app stages)
+ * theme: custom (brand) · vibe: "calm lab notebook, verifiable, green ink"
+ * paper oklch(97.9% 0.007 124.4) · accent oklch(47.1% 0.098 164.9) green · Inter + JetBrains Mono
+ * axes: light / grotesk-sans / chromatic-other · enrichment: E5 hand-built SVG diagram · nav: N1b · footer: Ft2
+ */
+:root {
+  /* brand palette (DrugRep) */
+  --color-paper: oklch(97.9% 0.007 124.4); /* #F7F9F4 */
+  --color-paper-2: oklch(95.5% 0.014 124.6); /* #EEF2E8 */
+  --color-surface: oklch(99.4% 0.003 124.4);
+  --color-ink: oklch(24% 0.032 163.4); /* #10241B */
+  --color-ink-2: oklch(40% 0.03 163);
+  --color-ink-3: oklch(52% 0.022 160);
+  --color-accent: oklch(47.1% 0.098 164.9); /* #036C4D */
+  --color-accent-hover: oklch(41% 0.09 165);
+  --color-accent-press: oklch(36% 0.08 165);
+  --color-dark: oklch(34.9% 0.052 165.9); /* #1C4334 */
+  --color-mint: oklch(88.6% 0.03 166.4); /* #C8E0D5 */
+  --color-mint-strong: oklch(79.7% 0.087 165.2); /* #85CFAF */
+  --color-mint-wash: oklch(94% 0.025 166);
+  --color-rule: oklch(89% 0.014 140);
+  --color-rule-strong: oklch(80% 0.02 150);
+  --color-on-accent: oklch(98.5% 0.006 124);
+  --color-focus: oklch(55% 0.12 165);
+  --color-warn: oklch(52% 0.12 60);
+  --color-warn-wash: oklch(95% 0.035 75);
+  --color-danger: oklch(50% 0.15 28);
+  --color-danger-wash: oklch(95.5% 0.025 28);
+
+  /* type */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-display-s: clamp(1.875rem, 2.6vw + 1rem, 2.75rem);
+  --text-display: clamp(2.25rem, 3.6vw + 1rem, 3.75rem);
+
+  /* space (4 pt) */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 6.5rem;
+  --gutter: 1rem;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+  --rule: 1px solid var(--color-rule);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+
+  --content-max: 72.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2rem;
+  }
+}

@@ -1,22 +1,26 @@
-// circomlibjs Poseidon matches circomlib's Poseidon template exactly.
-// @ts-expect-error circomlibjs ships no types
-import { buildPoseidon } from "circomlibjs";
+// poseidon-lite implements the same Poseidon (BN254, circomlib constants) as
+// circomlib's Poseidon template; sdk/test cross-checks it against circomlibjs.
+// It is synchronous and dependency free, so it runs the same in Node and the browser.
+import { poseidon1, poseidon2, poseidon3 } from "poseidon-lite";
 
-type PoseidonFn = ((inputs: bigint[]) => unknown) & { F: { toObject(x: unknown): bigint } };
-let poseidonPromise: Promise<PoseidonFn> | null = null;
-
-export function getPoseidon(): Promise<PoseidonFn> {
-  if (!poseidonPromise) poseidonPromise = buildPoseidon() as Promise<PoseidonFn>;
-  return poseidonPromise;
+export function poseidonSync(inputs: bigint[]): bigint {
+  switch (inputs.length) {
+    case 1:
+      return poseidon1(inputs);
+    case 2:
+      return poseidon2(inputs);
+    case 3:
+      return poseidon3(inputs);
+    default:
+      throw new Error(`unsupported Poseidon arity ${inputs.length}`);
+  }
 }
 
 export async function poseidon(inputs: bigint[]): Promise<bigint> {
-  const p = await getPoseidon();
-  return p.F.toObject(p(inputs));
+  return poseidonSync(inputs);
 }
 
-/** Synchronous hasher once Poseidon is loaded (for hot loops). */
+/** Kept async for API stability; returns the synchronous hasher. */
 export async function poseidonHasher(): Promise<(inputs: bigint[]) => bigint> {
-  const p = await getPoseidon();
-  return (inputs) => p.F.toObject(p(inputs));
+  return poseidonSync;
 }

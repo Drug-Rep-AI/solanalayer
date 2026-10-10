@@ -1,5 +1,5 @@
 import { sha256 } from "@noble/hashes/sha2.js";
-import { bytesToBigint, toHex } from "./bytes.js";
+import { bytesToBigint, toHex } from "./bytes";
 
 const enc = new TextEncoder();
 
