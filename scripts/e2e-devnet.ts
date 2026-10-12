@@ -51,7 +51,24 @@ const cluster = rpc.includes("devnet") ? "devnet" : rpc.includes("mainnet") ? "m
 const connection = new Connection(rpc, "confirmed");
 const tx = (sig: string) => explorer.tx(sig, cluster, rpc);
 const addr = (a: PublicKey) => explorer.address(a, cluster, rpc);
-const step = (n: number, title: string) => console.log(`\n[${n}] ${title}`);
+// The public devnet RPC rate limits bursts, so steps are paced and 429s retried.
+const pause = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
+const step = async (n: number, title: string) => {
+  await pause();
+  console.log(`\n[${n}] ${title}`);
+};
+
+async function withRetry<T>(fn: () => Promise<T>, tries = 5): Promise<T> {
+  for (let i = 0; ; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      const msg = String((e as Error).message ?? e);
+      if (i >= tries - 1 || !msg.includes("429")) throw e;
+      await pause(3000 * (i + 1));
+    }
+  }
+}
 
 async function prove(prepared: PreparedRun, ds: LabDataset) {
   const { input, public: pub } = await buildTrialMatchInput(prepared.predictions, ds);
@@ -86,21 +103,21 @@ async function main() {
     [engine],
   );
 
-  step(1, "DrugRep commits a prediction run");
+  await step(1, "DrugRep commits a prediction run");
   const runA = await prepareRun(freshDemoRun(`e2e-a-${Date.now().toString(36)}`));
   const a = await commitRun(engineP, engine.publicKey, runA);
   console.log(`  run ${a.runAccount.toBase58()}  slot ${a.account.slot}  top_k ${a.account.topK}`);
   console.log(`  predictions_root ${fieldToHex(runA.predictions.root)}`);
   console.log(`  tx ${tx(a.signature)}`);
 
-  step(2, "Lab commits only the root of its private labels");
+  await step(2, "Lab commits only the root of its private labels");
   const ds = await generateLabDataset();
   const d = await commitLabDataset(labP, lab.publicKey, ds, "DrugRep e2e demo lab");
   console.log(`  dataset ${d.dataset.toBase58()}  slot ${d.account.slot}  records ${d.account.recordCount}`);
   console.log(`  dataset_root ${fieldToHex(ds.root)} (labels, salts and lab secret stay local)`);
   console.log(`  tx ${tx(d.signature)}`);
 
-  step(3, "Lab proves the match with Groth16, verifier program checks it on chain");
+  await step(3, "Lab proves the match with Groth16, verifier program checks it on chain");
   const prA = await prove(runA, ds);
   console.log(`  proof generated in ${prA.ms} ms: hits ${prA.pub.hits} of top ${prA.pub.k}`);
   const vA = await verify(labP, lab.publicKey, a.runAccount, d.dataset, prA);
@@ -110,7 +127,7 @@ async function main() {
   console.log(`  tx ${tx(vA.sent.signature)}`);
   if (!vA.record.predictedFirst) throw new Error("expected predicted_first = true");
 
-  step(4, "Replay of the same proof is rejected");
+  await step(4, "Replay of the same proof is rejected");
   try {
     await verify(engineP, engine.publicKey, a.runAccount, d.dataset, prA);
     throw new Error("replay unexpectedly succeeded");
@@ -119,7 +136,7 @@ async function main() {
     console.log("  rejected: nullifier account already exists");
   }
 
-  step(5, "A run committed after the dataset gets no 'predicted first' badge");
+  await step(5, "A run committed after the dataset gets no 'predicted first' badge");
   const runB = await prepareRun(freshDemoRun(`e2e-b-${Date.now().toString(36)}`));
   const b = await commitRun(engineP, engine.publicKey, runB);
   const vB = await verify(labP, lab.publicKey, b.runAccount, d.dataset, await prove(runB, ds));
@@ -127,14 +144,19 @@ async function main() {
   console.log(`  tx ${tx(vB.sent.signature)}`);
   if (vB.record.predictedFirst) throw new Error("expected predicted_first = false");
 
-  step(6, "Lab revokes the dataset");
+  await step(6, "Lab revokes the dataset");
   const r = await revokeLabDataset(labP, lab.publicKey, d.dataset);
   console.log(`  revoke tx ${tx(r.signature)}`);
-  const sync = await sendIxs(engineP, [syncRevocationIx(engineP, vA.key, d.dataset), syncRevocationIx(engineP, vB.key, d.dataset)]);
-  const recA = await engineP.verifier.account.validationRecord.fetch(vA.key);
+  await pause();
+  const sync = await withRetry(() =>
+    sendIxs(engineP, [syncRevocationIx(engineP, vA.key, d.dataset), syncRevocationIx(engineP, vB.key, d.dataset)]),
+  );
+  const recA = await withRetry(() => engineP.verifier.account.validationRecord.fetch(vA.key));
   console.log(`  records synced (tx ${tx(sync.signature)}): revoked ${recA.revoked}`);
   const runC = await prepareRun(freshDemoRun(`e2e-c-${Date.now().toString(36)}`));
-  const c = await commitRun(engineP, engine.publicKey, runC);
+  await pause();
+  const c = await withRetry(() => commitRun(engineP, engine.publicKey, runC));
+  await pause();
   try {
     await verify(labP, lab.publicKey, c.runAccount, d.dataset, await prove(runC, ds));
     throw new Error("proof against a revoked dataset unexpectedly succeeded");

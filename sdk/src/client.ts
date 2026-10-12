@@ -176,14 +176,54 @@ export const VERIFY_COMPUTE_UNITS = 400_000;
 
 export type ProgramAccount<T> = { publicKey: PublicKey; account: T };
 
-export async function fetchAll(p: Programs) {
-  const [labs, datasets, runs, validations] = await Promise.all([
-    p.registry.account.lab.all(),
-    p.registry.account.dataset.all(),
-    p.registry.account.predictionRun.all(),
-    p.verifier.account.validationRecord.all(),
-  ]);
-  return { labs, datasets, runs, validations };
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** Retries a read when the RPC rate limits it (HTTP 429), with exponential backoff. */
+export async function withRateLimitRetry<T>(fn: () => Promise<T>, tries = 5): Promise<T> {
+  for (let i = 0; ; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      const msg = String((e as Error)?.message ?? e);
+      if (i >= tries - 1 || !/429|Too Many Requests|rate limit/i.test(msg)) throw e;
+      await sleep(1200 * 2 ** i);
+    }
+  }
+}
+
+type DecodedAll = {
+  labs: ProgramAccount<Awaited<ReturnType<Programs["registry"]["account"]["lab"]["fetch"]>>>[];
+  datasets: ProgramAccount<Awaited<ReturnType<Programs["registry"]["account"]["dataset"]["fetch"]>>>[];
+  runs: ProgramAccount<Awaited<ReturnType<Programs["registry"]["account"]["predictionRun"]["fetch"]>>>[];
+  validations: ProgramAccount<Awaited<ReturnType<Programs["verifier"]["account"]["validationRecord"]["fetch"]>>>[];
+};
+
+const sameBytes = (a: Uint8Array, b: number[]) => b.every((x, i) => a[i] === x);
+
+/**
+ * Reads every registry and verifier account with one getProgramAccounts call
+ * per program, decoding each account by its Anchor discriminator. Public RPCs
+ * rate limit getProgramAccounts hard, so two calls beat four.
+ */
+export async function fetchAll(p: Programs): Promise<DecodedAll> {
+  const conn = p.provider.connection;
+  const out: DecodedAll = { labs: [], datasets: [], runs: [], validations: [] };
+  const disc = (idl: { accounts?: { name: string; discriminator: number[] }[] }, name: string) =>
+    idl.accounts!.find((a) => a.name === name)!.discriminator;
+  const reg = await withRateLimitRetry(() => conn.getProgramAccounts(REGISTRY_ID, { commitment: "confirmed" }));
+  for (const { pubkey, account } of reg) {
+    const data = account.data;
+    if (sameBytes(data, disc(registryIdl, "Lab"))) out.labs.push({ publicKey: pubkey, account: p.registry.coder.accounts.decode("lab", data) });
+    else if (sameBytes(data, disc(registryIdl, "Dataset"))) out.datasets.push({ publicKey: pubkey, account: p.registry.coder.accounts.decode("dataset", data) });
+    else if (sameBytes(data, disc(registryIdl, "PredictionRun"))) out.runs.push({ publicKey: pubkey, account: p.registry.coder.accounts.decode("predictionRun", data) });
+  }
+  const ver = await withRateLimitRetry(() => conn.getProgramAccounts(VERIFIER_ID, { commitment: "confirmed" }));
+  for (const { pubkey, account } of ver) {
+    if (sameBytes(account.data, disc(verifierIdl, "ValidationRecord"))) {
+      out.validations.push({ publicKey: pubkey, account: p.verifier.coder.accounts.decode("validationRecord", account.data) });
+    }
+  }
+  return out;
 }
 
 export const bnToNumber = (v: BN | number) => (typeof v === "number" ? v : v.toNumber());

@@ -55,7 +55,7 @@ async function smoothScroll(page: Page, selector: string, offset = -100, wait = 
   await sleep(wait);
 }
 
-async function waitFor(page: Page, selector: string, timeout = 90_000) {
+async function waitFor(page: Page, selector: string, timeout = 150_000) {
   await page.waitForSelector(selector, { timeout });
 }
 
@@ -88,7 +88,7 @@ t0 = Date.now();
 try {
   // 2. The three layers (overview)
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
-  await page.waitForFunction(() => /\d/.test(document.querySelector("[data-testid=count-runs]")?.textContent ?? ""));
+  await page.waitForFunction(() => /\d/.test(document.querySelector("[data-testid=count-runs]")?.textContent ?? ""), null, { timeout: 90_000 });
   begin("overview");
   await caption(page, "DrugRep finds new uses for approved drugs", "The Proof Layer anchors each prediction on Solana before outcomes exist.");
   await sleep(4500);
@@ -177,7 +177,7 @@ try {
   await caption(page, "The lab can revoke", "Revoking blocks new proofs and marks existing validations as revoked.");
   await page.locator("[data-testid=revoke-dataset]").first().click();
   await page.waitForSelector("text=Dataset revoked", { timeout: 90_000 });
-  await sleep(3500);
+  await sleep(6000); // let the public RPC rate limit window pass before the next read
   await page.goto(`${BASE}/timeline/`, { waitUntil: "networkidle" });
   await waitFor(page, "[data-testid=timeline] details");
   await caption(page, "Revocation is on the record", "The validation now reads as revoked, for anyone who looks.");

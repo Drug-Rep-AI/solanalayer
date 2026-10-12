@@ -47,7 +47,10 @@ Decisions and library quirks found while building the POC. Newest last.
 - `@solana/wallet-adapter-*` is used as the brief asks, even though newer Solana tooling prefers Kit based wallet plugins. `@anchor-lang/core` 1.2 still builds on web3.js v1, which keeps the two compatible.
 - Revoking a dataset in the lab console also calls `sync_revocation` for every validation that used it, in the same transaction.
 
-## Devnet funding
+## Devnet deployment
 
-- The public devnet faucet returned 429 for this machine's IP for the whole session (`requestAirdrop` and `solana airdrop` both). Other public RPCs require API keys for airdrops. The deployer wallet `9hG7Cft6LMVKfmfr9wVUv8c5NipZ8hW7MHgefTWfderP` needs about 3 SOL to deploy both programs (each is about 180 KB). Until it is funded, everything was verified on a local validator (`solana-test-validator` 4.1.2 with both programs preloaded): Rust tests, `scripts/e2e-devnet.ts`, and the full UI flow in a browser.
-- Build each program on its own (`anchor build` does this; in CI we loop `cargo build-sbf --manifest-path ...`). A single `cargo build-sbf` at the workspace root unifies features, so the registry gets the verifier's `cpi` / `no-entrypoint` feature and compiles to an empty 544 byte program. The first CI run caught this.
+- The public devnet faucet refused every CLI airdrop from this machine (HTTP 429), and faucet.solana.com asks AI agents not to use it, so the deployer wallet `9hG7Cft6LMVKfmfr9wVUv8c5NipZ8hW7MHgefTWfderP` was funded by a person through the web faucet. Until then everything was verified on a local validator.
+- Deployed with `scripts/deploy-devnet.sh` on 2026-10-12: `drugrep_registry` in slot 510,186,932 (180,264 bytes), `drugrep_verifier` in slot 510,186,997 (177,568 bytes). Upgrade authority is the deployer wallet. Deploying both cost about 1.8 SOL in rent.
+- `scripts/e2e-devnet.ts` passes on devnet (run, dataset, proof with 8 of 20 hits, replay rejected, late run without the badge, revoke, sync, DatasetRevoked on a new proof).
+- The public devnet RPC rate limits `getProgramAccounts` per IP. The first version of the app read four account types in parallel and got 429s, so `fetchAll` now makes one `getProgramAccounts` call per program, decodes accounts by their Anchor discriminator, and backs off on 429. The e2e script paces its steps and retries 429s too. For heavier use, set `NEXT_PUBLIC_RPC_URL` to a dedicated devnet RPC.
+- The demo video is recorded with Playwright against the deployed app, using the app's demo burner wallet loaded with a separately funded devnet keypair (kept in `~/.config/solana/drugrep/`, never committed).
