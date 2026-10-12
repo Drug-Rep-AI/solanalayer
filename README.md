@@ -3,7 +3,7 @@
 DrugRep predictions anchored on Solana before outcomes exist, then checked against private lab data with zero knowledge proofs.
 
 **Live app (Solana devnet):** https://drugrep-proof-layer.vercel.app
-**Demo video:** [demo/drugrep-proof-layer-demo.mp4](demo/drugrep-proof-layer-demo.mp4)
+**Demo video:** https://drugrep-proof-layer.vercel.app/demo/drugrep-proof-layer-demo.mp4 (also in the repo at [demo/drugrep-proof-layer-demo.mp4](demo/drugrep-proof-layer-demo.mp4))
 **Motto:** Every drug deserves a second chance.
 
 > Devnet proof of concept. All drugs, scores and lab labels in this repo and the app are **demo data** shaped like real engine output. They are not model output and not trial or patient data. The Groth16 trusted setup is a single party test setup and is not secure for production.

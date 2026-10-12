@@ -15,3 +15,8 @@ for (const f of ["trial_match.wasm", "trial_match_final.zkey", "verification_key
 const snarkjsDir = join(here, "..", "node_modules", "snarkjs");
 copyFileSync(join(snarkjsDir, "build", "snarkjs.min.js"), join(out, "snarkjs.min.js"));
 console.log("zk artifacts copied to public/zk");
+
+// Serve the demo video from the site so it plays in the browser.
+const demoOut = join(here, "..", "public", "demo");
+mkdirSync(demoOut, { recursive: true });
+copyFileSync(join(here, "..", "..", "demo", "drugrep-proof-layer-demo.mp4"), join(demoOut, "drugrep-proof-layer-demo.mp4"));
