@@ -19,4 +19,6 @@ console.log("zk artifacts copied to public/zk");
 // Serve the demo video from the site so it plays in the browser.
 const demoOut = join(here, "..", "public", "demo");
 mkdirSync(demoOut, { recursive: true });
-copyFileSync(join(here, "..", "..", "demo", "drugrep-proof-layer-demo.mp4"), join(demoOut, "drugrep-proof-layer-demo.mp4"));
+for (const f of ["drugrep-proof-layer-demo.mp4", "drugrep-pitch.mp4"]) {
+  copyFileSync(join(here, "..", "..", "demo", f), join(demoOut, f));
+}
